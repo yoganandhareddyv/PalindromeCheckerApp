@@ -8,16 +8,15 @@ public class PalindromeCheckerApp {
         String reversed = "";
 
         // Reverse the string
-        for(int i = word.length() - 1; i >= 0; i--){
+        for (int i = word.length() - 1; i >= 0; i--) {
             reversed = reversed + word.charAt(i);
         }
 
-        // Check palindrome
-        if(word.equals(reversed)){
+        // Compare original and reversed
+        if (word.equals(reversed)) {
             System.out.println(word + " is a Palindrome");
         } else {
             System.out.println(word + " is NOT a Palindrome");
         }
-
     }
 }
