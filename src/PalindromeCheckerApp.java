@@ -9,27 +9,32 @@ public class PalindromeCheckerApp {
         System.out.println("Enter a string:");
         String input = scanner.nextLine();
 
-        // Normalize string
-        String normalized = input.toLowerCase().replaceAll("\\s+", "");
+        // Create object of PalindromeChecker
+        PalindromeChecker checker = new PalindromeChecker();
 
-        boolean result = isPalindrome(normalized);
+        boolean result = checker.checkPalindrome(input);
 
-        if (result)
+        if(result)
             System.out.println("Result: It is a Palindrome");
         else
             System.out.println("Result: It is NOT a Palindrome");
 
         scanner.close();
     }
+}
 
-    public static boolean isPalindrome(String str) {
+
+// Service Class
+class PalindromeChecker {
+
+    public boolean checkPalindrome(String str){
 
         int left = 0;
         int right = str.length() - 1;
 
-        while (left < right) {
+        while(left < right){
 
-            if (str.charAt(left) != str.charAt(right))
+            if(str.charAt(left) != str.charAt(right))
                 return false;
 
             left++;
