@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class PalindromeCheckerApp {
 
@@ -9,30 +9,29 @@ public class PalindromeCheckerApp {
         System.out.println("Enter a string:");
         String input = scanner.nextLine();
 
-        // Convert string to char array
-        char[] chars = input.toCharArray();
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
 
-        int left = 0;
-        int right = chars.length - 1;
+        // Insert characters
+        for (char c : input.toCharArray()) {
+            queue.add(c);
+            stack.push(c);
+        }
 
         boolean isPalindrome = true;
 
-        // Compare characters from both ends
-        while (left < right) {
+        while (!queue.isEmpty()) {
 
-            if (chars[left] != chars[right]) {
+            if (queue.remove() != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-
-            left++;
-            right--;
         }
 
         if (isPalindrome)
-            System.out.println("Result: It is a Palindrome");
+            System.out.println("Result: Palindrome");
         else
-            System.out.println("Result: It is NOT a Palindrome");
+            System.out.println("Result: Not a Palindrome");
 
         scanner.close();
     }

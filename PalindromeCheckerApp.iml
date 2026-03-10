@@ -1,0 +1,25 @@
+<<<<<<< HEAD
+=======
+Scanner sc = new Scanner(System.in);
+
+System.out.print("Enter a string to check: ");
+String original = sc.nextLine();
+
+// Normalize string: remove spaces and lowercase
+String cleaned = original.replaceAll("\\s+", "").toLowerCase();
+
+// Reverse normalized string
+String reversedCleaned = "";
+for (int i = cleaned.length() - 1; i >= 0; i--) {
+    reversedCleaned += cleaned.charAt(i);
+}
+
+// Compare
+if (cleaned.equals(reversedCleaned)) {
+    System.out.println("\"" + original + "\" is a palindrome ignoring case and spaces.");
+} else {
+    System.out.println("\"" + original + "\" is not a palindrome ignoring case and spaces.");
+}
+
+sc.close();
+>>>>>>> feature/UC4
