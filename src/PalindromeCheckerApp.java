@@ -2,69 +2,89 @@ import java.util.Scanner;
 
 public class PalindromeCheckerApp {
 
+    // Node class
     static class Node {
         char data;
         Node next;
 
         Node(char data) {
             this.data = data;
+            this.next = null;
         }
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter a string to check: ");
-        String input = sc.nextLine();
 
-        if (isPalindromeLinkedList(input)) {
-            System.out.println("\"" + input + "\" is a palindrome.");
-        } else {
-            System.out.println("\"" + input + "\" is not a palindrome.");
-        }
+        Scanner scanner = new Scanner(System.in);
 
-        sc.close();
-    }
+        System.out.println("Enter a string:");
+        String input = scanner.nextLine();
 
-    public static boolean isPalindromeLinkedList(String str) {
-        if (str == null || str.length() <= 1) return true;
+        Node head = null;
+        Node tail = null;
 
         // Convert string to linked list
-        Node head = new Node(str.charAt(0));
-        Node curr = head;
-        for (int i = 1; i < str.length(); i++) {
-            curr.next = new Node(str.charAt(i));
-            curr = curr.next;
+        for (int i = 0; i < input.length(); i++) {
+
+            Node newNode = new Node(input.charAt(i));
+
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
         }
 
-        // Find middle using slow & fast pointers
-        Node slow = head, fast = head;
+        boolean result = isPalindrome(head);
+
+        if (result)
+            System.out.println("Result: It is a Palindrome");
+        else
+            System.out.println("Result: It is NOT a Palindrome");
+
+        scanner.close();
+    }
+
+    public static boolean isPalindrome(Node head) {
+
+        if (head == null || head.next == null)
+            return true;
+
+        Node slow = head;
+        Node fast = head;
+
+        // Find middle
         while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
         // Reverse second half
-        Node secondHalf = reverseList(slow);
-        Node firstHalf = head;
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+            Node nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
 
         // Compare halves
+        Node firstHalf = head;
+        Node secondHalf = prev;
+
         while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) return false;
+
+            if (firstHalf.data != secondHalf.data)
+                return false;
+
             firstHalf = firstHalf.next;
             secondHalf = secondHalf.next;
         }
 
         return true;
-    }
-
-    private static Node reverseList(Node head) {
-        Node prev = null, curr = head;
-        while (curr != null) {
-            Node nextTemp = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = nextTemp;
-        }
-        return prev;
     }
 }
